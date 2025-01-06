@@ -27,20 +27,20 @@ public class Sokoban extends JPanel implements ActionListener{
 
     private char ground[][] =
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-                    {'w', 'n', 'n', 'g', 'n', 'n', 'w'},
+                    {'w', 'b', 'n', 'g', 'b', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
-                    {'w', 'g', 'n', 'n', 'n', 'n', 'w'},
-                    {'w', 'n', 'n', 'n', 'g', 'n', 'w'},
+                    {'w', 'g', 'n', 'n', 'n', 'b', 'w'},
+                    {'w', 'b', 'n', 'n', 'g', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
     private char top[][] =
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'z', 'n', 'n', 'z', 'n', 'w'},
                     {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'b', 'n', 'w'},
-                    {'w', 'n', 'b', 'n', 'b', 'n', 'w'},
-                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'b', 'n', 'b', 'z', 'w'},
+                    {'w', 'z', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
 
