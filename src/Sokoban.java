@@ -265,7 +265,7 @@ public class Sokoban extends JPanel implements ActionListener{
         JFrame.setDefaultLookAndFeelDecorated(true);
         JFrame frame = new JFrame("PLACEHOLDER: Sokoban");
 
-        frame.setSize(600, 650);         //resizes JFrame pane size
+        frame.setSize(1920, 1080);         //resizes JFrame pane size
         frame.setBackground(Color.WHITE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
