@@ -21,15 +21,15 @@ public class Sokoban extends JPanel implements ActionListener{
     private int level = 1;
 
 
-    private int x = 3;
-    private int y = 2;
-    private JLabel iconArray[] = new JLabel[row * col];
+    private int x = 2;
+    private int y = 3;
+    private JLabel currArray[] = new JLabel[row * col];
 
     private char ground[][] =
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
                     {'w', 'b', 'n', 'g', 'b', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                    {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
+                    {'w', 'n', 'c', 'n', 'n', 'g', 'w'},
                     {'w', 'g', 'n', 'n', 'n', 'b', 'w'},
                     {'w', 'b', 'n', 'n', 'g', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
@@ -38,7 +38,7 @@ public class Sokoban extends JPanel implements ActionListener{
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
                     {'w', 'z', 'n', 'n', 'z', 'n', 'w'},
                     {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
-                    {'w', 'n', 'n', 'n', 'b', 'n', 'w'},
+                    {'w', 'n', 'r', 'n', 'b', 'n', 'w'},
                     {'w', 'n', 'b', 'n', 'b', 'z', 'w'},
                     {'w', 'z', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
@@ -101,10 +101,11 @@ public class Sokoban extends JPanel implements ActionListener{
         for(int i = 0; i < row; i++){
             for(int j = 0; j < col; j++){
 
-                iconArray[move] = new JLabel(createImageIcon(ground[i][j] + "" + top[i][j] + ".png"));
-                iconArray[move].setPreferredSize(new Dimension(127, 127));
-                pane.add(iconArray[move]);
+                currArray[move] = new JLabel(createImageIcon(ground[i][j] + "" + top[i][j] + ".png"));
+                currArray[move].setPreferredSize(new Dimension(127, 127));
+                pane.add(currArray[move]);
                 move++;
+
             }
         }
 
@@ -140,8 +141,9 @@ public class Sokoban extends JPanel implements ActionListener{
         dir.add(right);
         card3.add(dir);
 
-
+        feedback = new JLabel("Moves: " + y + ", " + x); // Added feedback label
         p_card.add("3", card3);
+
     }
 
 
@@ -196,7 +198,7 @@ public class Sokoban extends JPanel implements ActionListener{
         int move = 0;
         for(int i = 0 ; i < row ; i++){
             for(int j = 0 ; j < col ; j++){
-                iconArray[move].setIcon(createImageIcon(ground[i][j] + "" + top[i][j] + ".png"));
+                currArray[move].setIcon(createImageIcon(ground[i][j] + "" + top[i][j] + ".png"));
                 move++;
             }
         }
@@ -205,23 +207,25 @@ public class Sokoban extends JPanel implements ActionListener{
 
 
 
-    public void moveUp()
-    {
+    public void moveUp() {
+        if (y-1==0){
+            currArray[]
+        }
     }
 
 
-    public void moveDown()
-    {
+    public void moveDown() {
+
     }
 
 
-    public void moveLeft()
-    {
+    public void moveLeft() {
+
     }
 
 
-    public void moveRight()
-    {
+    public void moveRight() {
+
     }
 
 
