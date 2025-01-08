@@ -21,18 +21,19 @@ public class Sokoban extends JPanel implements ActionListener{
     private int level = 1;
 
 
-    private int x = 2;
-    private int y = 3;
+    private int x = 3;
+    private int y = 2;
     private JLabel currArray[] = new JLabel[row * col];
 
     private char ground[][] =
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
                     {'w', 'b', 'n', 'g', 'b', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                    {'w', 'n', 'c', 'n', 'n', 'g', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
                     {'w', 'g', 'n', 'n', 'n', 'b', 'w'},
                     {'w', 'b', 'n', 'n', 'g', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+
 
     private char top[][] =
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
@@ -42,6 +43,7 @@ public class Sokoban extends JPanel implements ActionListener{
                     {'w', 'n', 'b', 'n', 'b', 'z', 'w'},
                     {'w', 'z', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+
 
 
     public Sokoban(){
@@ -208,14 +210,59 @@ public class Sokoban extends JPanel implements ActionListener{
 
 
     public void moveUp() {
-        if (y-1==0){
-            currArray[]
+        if (top[x-1][y]=='w')
+            feedback.setText("Wall, unable");
+        else if (top[x-1][y]=='n'){
+            if (x==3&&y==2)
+                top[3][2]='n';
+            x--;
+            feedback.setText("Moving up");
+
         }
+        else if (top[x-1][y]=='b') {
+            if (x-2>=0&&top[x-2][y]=='n'){
+                if (x==3&&y==2)
+                    top[3][2]='n';
+                top[x-2][y]='b';
+                top[x-1][y]='n';
+
+                x--;
+                feedback.setText("Pushing the box");
+            }
+            else
+                feedback.setText("Box can't move");
+        }
+        redraw();
+        currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"u.png"));
+
     }
 
 
     public void moveDown() {
+        if (top[x+1][y]=='w')
+            feedback.setText("Wall, unable");
+        else if (top[x+1][y]=='n'){
+            if (x==3&&y==2)
+                top[3][2]='n';
+            x++;
+            feedback.setText("Moving down");
 
+        }
+        else if (top[x+1][y]=='b') {
+            if (x+2>=0&&top[x+2][y]=='n'){
+                if (x==3&&y==2)
+                    top[3][2]='n';
+                top[x+2][y]='b';
+                top[x+1][y]='n';
+
+                x++;
+                feedback.setText("Pushing the box");
+            }
+            else
+                feedback.setText("Box can't move");
+        }
+        redraw();
+        currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"d.png"));
     }
 
 
