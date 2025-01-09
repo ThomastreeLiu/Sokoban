@@ -27,21 +27,20 @@ public class Sokoban extends JPanel implements ActionListener{
 
     private char ground[][] =
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-                    {'w', 'b', 'n', 'g', 'b', 'n', 'w'},
+                    {'w', 'n', 'n', 'g', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
-                    {'w', 'g', 'n', 'n', 'n', 'b', 'w'},
-                    {'w', 'b', 'n', 'n', 'g', 'n', 'w'},
+                    {'w', 'g', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'g', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
-
 
     private char top[][] =
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-                    {'w', 'z', 'n', 'n', 'z', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
                     {'w', 'n', 'r', 'n', 'b', 'n', 'w'},
-                    {'w', 'n', 'b', 'n', 'b', 'z', 'w'},
-                    {'w', 'z', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'b', 'n', 'b', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
 
@@ -110,8 +109,6 @@ public class Sokoban extends JPanel implements ActionListener{
 
             }
         }
-
-        //iconArray[x * col + y].setIcon(createImageIcon(ground[x][y] + "down.png"));
 
         JButton up = new JButton("Up");
         up.setActionCommand("up");
@@ -233,7 +230,7 @@ public class Sokoban extends JPanel implements ActionListener{
                 feedback.setText("Box can't move");
         }
         redraw();
-        currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"u.png"));
+        currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"up.png"));
 
     }
 
@@ -262,17 +259,63 @@ public class Sokoban extends JPanel implements ActionListener{
                 feedback.setText("Box can't move");
         }
         redraw();
-        currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"d.png"));
+        currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"down.png"));
     }
 
 
     public void moveLeft() {
+        if (top[x][y-1]=='w')
+            feedback.setText("Wall, unable");
+        else if (top[x][y-1]=='n'){
+            if (x==3&&y==2)
+                top[3][2]='n';
+            y--;
+            feedback.setText("Moving left");
 
+        }
+        else if (top[x][y-1]=='b') {
+            if (y-2>=0&&top[x][y-2]=='n'){
+                if (x==3&&y==2)
+                    top[3][2]='n';
+                top[x][y-2]='b';
+                top[x][y-1]='n';
+
+                y--;
+                feedback.setText("Pushing the box");
+            }
+            else
+                feedback.setText("Box can't move");
+        }
+        redraw();
+        currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"left.png"));
     }
 
 
     public void moveRight() {
+        if (top[x][y+1]=='w')
+            feedback.setText("Wall, unable");
+        else if (top[x][y+1]=='n'){
+            if (x==3&&y==2)
+                top[3][2]='n';
+            y++;
+            feedback.setText("Moving left");
 
+        }
+        else if (top[x][y+1]=='b') {
+            if (y-2>=0&&top[x][y+2]=='n'){
+                if (x==3&&y==2)
+                    top[3][2]='n';
+                top[x][y+2]='b';
+                top[x][y+1]='n';
+
+                y++;
+                feedback.setText("Pushing the box");
+            }
+            else
+                feedback.setText("Box can't move");
+        }
+        redraw();
+        currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"right.png"));
     }
 
 
