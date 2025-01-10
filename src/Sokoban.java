@@ -125,7 +125,7 @@ public class Sokoban extends JPanel implements ActionListener{
 
         card3.add(title);
         card3.add(next);
-
+        card3.add(feedback);
         card3.add(pane);
 
         JPanel dir = new JPanel(new GridLayout(2, 3));
@@ -205,15 +205,19 @@ public class Sokoban extends JPanel implements ActionListener{
     }
 
 
-
+//
     public void moveUp() {
         if (top[x-1][y]=='w')
             feedback.setText("Wall, unable");
         else if (top[x-1][y]=='n'){
-            if (x==3&&y==2)
-                top[3][2]='n';
-            x--;
-            feedback.setText("Moving up");
+            if (top[x-1][y]=='n') {
+                x--;
+                feedback.setText("Moving up");
+            }
+            else if (top[x-1][y]=='g') {
+                x--;
+                feedback.setText("Moving up");
+            }
 
         }
         else if (top[x-1][y]=='b') {
@@ -225,6 +229,10 @@ public class Sokoban extends JPanel implements ActionListener{
 
                 x--;
                 feedback.setText("Pushing the box");
+            }
+            else if (ground[x-1][y]=='g') {
+                x--;
+                feedback.setText("Moving up");
             }
             else
                 feedback.setText("Box can't move");
