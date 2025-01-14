@@ -78,10 +78,12 @@ public class Sokoban extends JPanel implements ActionListener{
         card2 = new JPanel();
         card2.setBackground(Color.white);
         JLabel title = new JLabel("Instructions");
+        JLabel intro = new JLabel(createImageIcon("intro.gif"));
         JButton next = new JButton("Next");
         next.setActionCommand("s3");
         next.addActionListener(this);
         card2.add(title);
+        card2.add(intro);
         card2.add(next);
         p_card.add("2", card2);
     }
@@ -374,7 +376,7 @@ public class Sokoban extends JPanel implements ActionListener{
         JFrame.setDefaultLookAndFeelDecorated(true);
         JFrame frame = new JFrame("PLACEHOLDER: Sokoban");
 
-        frame.setSize(1920, 1080);         //resizes JFrame pane size
+        frame.setSize(2000, 1080);         //resizes JFrame pane size
         frame.setBackground(Color.WHITE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
