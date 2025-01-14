@@ -125,7 +125,7 @@ public class Sokoban extends JPanel implements ActionListener{
 
         card3.add(title);
         card3.add(next);
-        card3.add(feedback);
+
         card3.add(pane);
 
         JPanel dir = new JPanel(new GridLayout(2, 3));
@@ -140,7 +140,8 @@ public class Sokoban extends JPanel implements ActionListener{
         dir.add(right);
         card3.add(dir);
 
-        feedback = new JLabel("Moves: " + y + ", " + x); // Added feedback label
+        feedback = new JLabel("      Moves: " + y + ", " + x); // Added feedback label
+        card3.add(feedback);
         p_card.add("3", card3);
 
     }
@@ -208,15 +209,15 @@ public class Sokoban extends JPanel implements ActionListener{
 //
     public void moveUp() {
         if (top[x-1][y]=='w')
-            feedback.setText("Wall, unable");
+            feedback.setText("      Wall, unable");
         else if (top[x-1][y]=='n'){
             if (top[x-1][y]=='n') {
                 x--;
-                feedback.setText("Moving up");
+                feedback.setText("       Moving up");
             }
             else if (top[x-1][y]=='g') {
                 x--;
-                feedback.setText("Moving up");
+                feedback.setText("      Moving up");
             }
 
         }
@@ -228,14 +229,14 @@ public class Sokoban extends JPanel implements ActionListener{
                 top[x-1][y]='n';
 
                 x--;
-                feedback.setText("Pushing the box");
+                feedback.setText("      Pushing the box");
             }
             else if (ground[x-1][y]=='g') {
                 x--;
-                feedback.setText("Moving up");
+                feedback.setText("      Moving up");
             }
             else
-                feedback.setText("Box can't move");
+                feedback.setText("      Box can't move");
         }
         redraw();
         currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"up.png"));
@@ -245,26 +246,32 @@ public class Sokoban extends JPanel implements ActionListener{
 
     public void moveDown() {
         if (top[x+1][y]=='w')
-            feedback.setText("Wall, unable");
-        else if (top[x+1][y]=='n'){
-            if (x==3&&y==2)
-                top[3][2]='n';
-            x++;
-            feedback.setText("Moving down");
-
+            feedback.setText("      Wall, unable");
+        else if (top[x+1][y]=='n') {
+            if (top[x + 1][y] == 'n') {
+                x++;
+                feedback.setText("       Moving down");
+            } else if (top[x + 1][y] == 'g') {
+                x++;
+                feedback.setText("      Moving down");
+            }
         }
-        else if (top[x+1][y]=='b') {
-            if (x+2>=0&&top[x+2][y]=='n'){
-                if (x==3&&y==2)
-                    top[3][2]='n';
-                top[x+2][y]='b';
-                top[x+1][y]='n';
+        else if (top[x + 1][y] == 'b') {
+            if (x + 2 >= 0 && top[x + 2][y] == 'n') {
+                if (x == 3 && y == 2)
+                    top[3][2] = 'n';
+                top[x + 2][y] = 'b';
+                top[x + 1][y] = 'n';
 
                 x++;
-                feedback.setText("Pushing the box");
+                feedback.setText("      Pushing the box");
+            }
+            else if (ground[x + 1][y] == 'g') {
+                x++;
+                feedback.setText("      Moving down");
             }
             else
-                feedback.setText("Box can't move");
+                feedback.setText("      Box can't move");
         }
         redraw();
         currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"down.png"));
@@ -273,12 +280,12 @@ public class Sokoban extends JPanel implements ActionListener{
 
     public void moveLeft() {
         if (top[x][y-1]=='w')
-            feedback.setText("Wall, unable");
+            feedback.setText("      Wall, unable");
         else if (top[x][y-1]=='n'){
             if (x==3&&y==2)
                 top[3][2]='n';
             y--;
-            feedback.setText("Moving left");
+            feedback.setText("      Moving left");
 
         }
         else if (top[x][y-1]=='b') {
@@ -289,10 +296,10 @@ public class Sokoban extends JPanel implements ActionListener{
                 top[x][y-1]='n';
 
                 y--;
-                feedback.setText("Pushing the box");
+                feedback.setText("      Pushing the box");
             }
             else
-                feedback.setText("Box can't move");
+                feedback.setText("      Box can't move");
         }
         redraw();
         currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"left.png"));
@@ -301,12 +308,12 @@ public class Sokoban extends JPanel implements ActionListener{
 
     public void moveRight() {
         if (top[x][y+1]=='w')
-            feedback.setText("Wall, unable");
+            feedback.setText("      Wall, unable");
         else if (top[x][y+1]=='n'){
             if (x==3&&y==2)
                 top[3][2]='n';
             y++;
-            feedback.setText("Moving left");
+            feedback.setText("      Moving left");
 
         }
         else if (top[x][y+1]=='b') {
@@ -317,10 +324,10 @@ public class Sokoban extends JPanel implements ActionListener{
                 top[x][y+1]='n';
 
                 y++;
-                feedback.setText("Pushing the box");
+                feedback.setText("      Pushing the box");
             }
             else
-                feedback.setText("Box can't move");
+                feedback.setText("      Box can't move");
         }
         redraw();
         currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"right.png"));
