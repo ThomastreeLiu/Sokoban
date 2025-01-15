@@ -17,7 +17,6 @@ public class Sokoban extends JPanel implements ActionListener{
     //grid
     private int row = 7;
     private int col = 7;
-
     private int level = 1;
 
 
@@ -319,7 +318,7 @@ public class Sokoban extends JPanel implements ActionListener{
 
         }
         else if (top[x][y+1]=='b') {
-            if (y-2>=0&&top[x][y+2]=='n'){
+            if (y+2>=0&&top[x][y+2]=='n'){
                 if (x==3&&y==2)
                     top[3][2]='n';
                 top[x][y+2]='b';
