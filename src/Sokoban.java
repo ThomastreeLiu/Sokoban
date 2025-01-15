@@ -13,11 +13,14 @@ public class Sokoban extends JPanel implements ActionListener{
     private JPanel card1, card2, card3, card4, card5;
     private CardLayout cdLayout = new CardLayout();
     private JLabel feedback = new JLabel("");
+    private JButton next = new JButton("Next");
+    private JButton tryAgain= new JButton("Try again");
 
     //grid
     private int row = 7;
     private int col = 7;
     private int level = 1;
+    private boolean wol;
 
 
     private int x = 3;
@@ -149,11 +152,11 @@ public class Sokoban extends JPanel implements ActionListener{
 
 
     public void screen4(){
+        wol = true;
         //screen 4 is set up.
         card4 = new JPanel();
         card4.setBackground(Color.yellow);
         JLabel title = new JLabel("You Win!");
-        JButton next = new JButton("Next");
         next.setActionCommand("s5");
         next.addActionListener(this);
         card4.add(title);
@@ -164,17 +167,17 @@ public class Sokoban extends JPanel implements ActionListener{
 
     public void screen5(){
         //screen 5 is set up.
+        wol = false;
         card5 = new JPanel();
         card5.setBackground(Color.cyan);
         JLabel title = new JLabel("You Lose.");
-        JButton next = new JButton("Back to Introduction?");
         next.setActionCommand("s1");
         next.addActionListener(this);
         JButton end = new JButton("Quit?");
         end.setActionCommand("s6");
         end.addActionListener(this);
         card5.add(title);
-        card5.add(next);
+        card5.add(tryAgain);
         card5.add(end);
         p_card.add("5", card5);
     }
@@ -344,6 +347,25 @@ public class Sokoban extends JPanel implements ActionListener{
         }
     }
 
+    public void reset(){
+        ground = new char[][]   {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
+                            {'w', 'n', 'n', 'g', 'n', 'n', 'w'},
+                            {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                            {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
+                            {'w', 'g', 'n', 'n', 'n', 'n', 'w'},
+                            {'w', 'n', 'n', 'n', 'g', 'n', 'w'},
+                            {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+
+        top = new char[][]      {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
+                            {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                            {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
+                            {'w', 'n', 'r', 'n', 'b', 'n', 'w'},
+                            {'w', 'n', 'b', 'n', 'b', 'n', 'w'},
+                            {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                            {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e){
         //moves between the screens
@@ -367,6 +389,12 @@ public class Sokoban extends JPanel implements ActionListener{
             moveLeft();
         else if(e.getActionCommand().equals("right"))
             moveRight();
+        else if (e.getActionCommand().equals("next"))
+            reset();
+        else if (e.getActionCommand().equals("tryAgain")) {
+            reset();
+        }
+
 
     }
 
