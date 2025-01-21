@@ -84,10 +84,12 @@ public class Sokoban extends JPanel implements ActionListener{
         card1 = new JPanel();
         card1.setBackground(Color.white);
         JLabel title = new JLabel("Welcome");
+        JLabel scn = new JLabel(createImageIcon("scn1.gif"));
         JButton next = new JButton("Next");
         next.setActionCommand("s2");
         next.addActionListener(this);
         card1.add(title);
+        card1.add(scn);
         card1.add(next);
         p_card.add("1", card1);
     }
