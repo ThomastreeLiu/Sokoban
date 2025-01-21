@@ -24,7 +24,9 @@ public class Sokoban extends JPanel implements ActionListener{
 
 
     private int x = 3;
+    private int x2 = 3;
     private int y = 2;
+    private int y2 = 2;
     private JLabel currArray[] = new JLabel[row * col];
 
     private char ground[][] =
@@ -35,8 +37,24 @@ public class Sokoban extends JPanel implements ActionListener{
                     {'w', 'g', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'g', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+    private char ground2[][] =
+            {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
+                    {'w', 'n', 'n', 'g', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
+                    {'w', 'g', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'g', 'n', 'w'},
+                    {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
     private char top[][] =
+            {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
+                    {'w', 'n', 'r', 'n', 'b', 'n', 'w'},
+                    {'w', 'n', 'b', 'n', 'b', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+    private char top2[][] =
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
@@ -92,6 +110,8 @@ public class Sokoban extends JPanel implements ActionListener{
 
 
     public void screen3(){
+        if (win())
+            next();
         //screen 3 is set up.
         card3 = new JPanel();
         card3.setBackground(Color.white);
@@ -126,6 +146,9 @@ public class Sokoban extends JPanel implements ActionListener{
         JButton left = new JButton("Left");
         left.setActionCommand("left");
         left.addActionListener(this);
+        JButton reset = new JButton("Reset");
+        left.setActionCommand("reset");
+        left.addActionListener(this);
 
         card3.add(title);
         card3.add(next);
@@ -135,6 +158,7 @@ public class Sokoban extends JPanel implements ActionListener{
         JPanel dir = new JPanel(new GridLayout(2, 3));
         JLabel filler = new JLabel("");
         JLabel filler2 = new JLabel("");
+        JLabel filler3 = new JLabel("");
         dir.add(filler);
         dir.add(up);
         dir.add(filler2);
@@ -142,6 +166,8 @@ public class Sokoban extends JPanel implements ActionListener{
         dir.add(left);
         dir.add(down);
         dir.add(right);
+        //dir.add(filler3);
+        //dir.add(reset);
         card3.add(dir);
 
         feedback = new JLabel("      Moves: " + y + ", " + x); // Added feedback label
@@ -162,6 +188,7 @@ public class Sokoban extends JPanel implements ActionListener{
         card4.add(title);
         card4.add(next);
         p_card.add("4", card4);
+        reset();
     }
 
 
@@ -180,6 +207,7 @@ public class Sokoban extends JPanel implements ActionListener{
         card5.add(tryAgain);
         card5.add(end);
         p_card.add("5", card5);
+        reset();
     }
 
 
@@ -206,24 +234,40 @@ public class Sokoban extends JPanel implements ActionListener{
                 move++;
             }
         }
-
+        win();
+    }
+    public boolean win(){
+        for(int i = 0 ; i < row ; i++){
+            for(int j = 0 ; j < col ; j++){
+                if (ground[i][j]=='g'&&top[i][j]!='b')
+                    return false;
+            }
+        }
+        return true;
+    }
+    public void next(){
+        level++;
+        if (level==2){
+            copyOver(ground,ground2);
+            copyOver(top,top2);
+            x=x2;
+            y=y2;
+        }
     }
 
 
-//
+//up tested
     public void moveUp() {
         if (top[x-1][y]=='w')
             feedback.setText("      Wall, unable");
         else if (top[x-1][y]=='n'){
-            if (top[x-1][y]=='n') {
                 x--;
                 feedback.setText("       Moving up");
-            }
-            else if (top[x-1][y]=='g') {
-                x--;
-                feedback.setText("      Moving up");
-            }
 
+        }
+        else if (top[x-1][y]=='g') {
+            x--;
+            feedback.setText("      Moving up");
         }
         else if (top[x-1][y]=='b') {
             if (x-2>=0&&top[x-2][y]=='n'){
@@ -234,10 +278,6 @@ public class Sokoban extends JPanel implements ActionListener{
 
                 x--;
                 feedback.setText("      Pushing the box");
-            }
-            else if (ground[x-1][y]=='g') {
-                x--;
-                feedback.setText("      Moving up");
             }
             else
                 feedback.setText("      Box can't move");
@@ -286,21 +326,21 @@ public class Sokoban extends JPanel implements ActionListener{
         if (top[x][y-1]=='w')
             feedback.setText("      Wall, unable");
         else if (top[x][y-1]=='n'){
-            if (x==3&&y==2)
-                top[3][2]='n';
+//            if (x==3&&y==2)
+//                top[3][2]='n';
             y--;
             feedback.setText("      Moving left");
 
         }
         else if (top[x][y-1]=='b') {
             if (y-2>=0&&top[x][y-2]=='n'){
-                if (x==3&&y==2)
-                    top[3][2]='n';
+//                if (x==3&&y==2)
+//                    top[3][2]='n';
                 top[x][y-2]='b';
                 top[x][y-1]='n';
 
                 y--;
-                feedback.setText("      Pushing the box");
+                feedback.setText("      Pushing the box left");
             }
             else
                 feedback.setText("      Box can't move");
@@ -389,13 +429,11 @@ public class Sokoban extends JPanel implements ActionListener{
             moveLeft();
         else if(e.getActionCommand().equals("right"))
             moveRight();
-        else if (e.getActionCommand().equals("next"))
-            reset();
-        else if (e.getActionCommand().equals("tryAgain")) {
-            reset();
-        }
-
-
+        else if(e.getActionCommand().equals("nextLevel"))
+            next();
+        else if(e.getActionCommand().equals("reset"))
+            moveRight();
+            reset();;
     }
 
     public static void main(String[] args) {
