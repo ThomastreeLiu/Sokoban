@@ -147,8 +147,8 @@ public class Sokoban extends JPanel implements ActionListener{
         left.setActionCommand("left");
         left.addActionListener(this);
         JButton reset = new JButton("Reset");
-        left.setActionCommand("reset");
-        left.addActionListener(this);
+        reset.setActionCommand("reset");
+        reset.addActionListener(this);
 
         card3.add(title);
         card3.add(next);
@@ -357,7 +357,7 @@ public class Sokoban extends JPanel implements ActionListener{
             if (x==3&&y==2)
                 top[3][2]='n';
             y++;
-            feedback.setText("      Moving left");
+            feedback.setText("      Moving right");
 
         }
         else if (top[x][y+1]=='b') {
