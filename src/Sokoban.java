@@ -271,8 +271,6 @@ public class Sokoban extends JPanel implements ActionListener{
         }
         else if (top[x-1][y]=='b') {
             if (x-2>=0&&top[x-2][y]=='n'){
-                if (x==3&&y==2)
-                    top[3][2]='n';
                 top[x-2][y]='b';
                 top[x-1][y]='n';
 
