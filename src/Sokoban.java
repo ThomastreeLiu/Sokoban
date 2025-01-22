@@ -112,8 +112,10 @@ public class Sokoban extends JPanel implements ActionListener{
 
 
     public void screen3(){
-        if (win())
+        if (win()) {
             next();
+            level++;
+        }
         //screen 3 is set up.
         card3 = new JPanel();
         card3.setBackground(Color.white);
@@ -154,11 +156,11 @@ public class Sokoban extends JPanel implements ActionListener{
         reset.addActionListener(this);
 
         card3.add(title);
-        card3.add(next);
+        //card3.add(next);
 
         card3.add(pane);
 
-        JPanel dir = new JPanel(new GridLayout(2, 3));
+        JPanel dir = new JPanel(new GridLayout(3, 3));
         JLabel filler = new JLabel("");
         JLabel filler2 = new JLabel("");
         JLabel filler3 = new JLabel("");
@@ -167,10 +169,10 @@ public class Sokoban extends JPanel implements ActionListener{
         dir.add(filler2);
 
         dir.add(left);
-        dir.add(down);
+        dir.add(reset);
         dir.add(right);
-        //dir.add(filler3);
-        //dir.add(reset);
+        dir.add(filler3);
+        dir.add(down);
         card3.add(dir);
 
         feedback = new JLabel("      Moves: " + y + ", " + x); // Added feedback label
@@ -178,6 +180,7 @@ public class Sokoban extends JPanel implements ActionListener{
         p_card.add("3", card3);
 
     }
+
 
 
     public void screen4(){
@@ -229,7 +232,10 @@ public class Sokoban extends JPanel implements ActionListener{
 
 
     public void redraw(){
-
+        if (win()) {
+            next();
+            level++;
+        }
         int move = 0;
         for(int i = 0 ; i < row ; i++){
             for(int j = 0 ; j < col ; j++){
@@ -237,7 +243,6 @@ public class Sokoban extends JPanel implements ActionListener{
                 move++;
             }
         }
-        win();
     }
     public boolean win(){
         for(int i = 0 ; i < row ; i++){
@@ -261,110 +266,121 @@ public class Sokoban extends JPanel implements ActionListener{
 
 //up tested
     public void moveUp() {
-        if (top[x-1][y]=='w')
-            feedback.setText("      Wall, unable");
-        else if (top[x-1][y]=='n'){
-                x--;
-                feedback.setText("       Moving up");
-
+        //wall
+        if (top[x-1][y]=='w'||top[x-1][y]=='g'&&ground[x-1][y]=='b'){
+            feedback.setText("Wall, unable");
         }
-        else if (top[x-1][y]=='g') {
+        //goal or not
+        else if (top[x-1][y]=='n') {
+            top[x][y] = 'n';  // 清除旧位置
             x--;
-            feedback.setText("      Moving up");
+            feedback.setText("Moving up");
         }
+        //box
         else if (top[x-1][y]=='b') {
             if (x-2>=0&&top[x-2][y]=='n'){
                 top[x-2][y]='b';
                 top[x-1][y]='n';
-
+                top[x][y] = 'n';  // 清除旧位置
                 x--;
-                feedback.setText("      Pushing the box");
+                feedback.setText("Pushing the box!");
             }
             else
-                feedback.setText("      Box can't move");
+                feedback.setText("Box can't move there");
         }
+        //update
         redraw();
+        repaint();
         currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"up.png"));
-
     }
 
 
     public void moveDown() {
-        if (top[x+1][y]=='w')
-            feedback.setText("      Wall, unable");
-        else if (top[x+1][y]=='n') {
-            if (top[x + 1][y] == 'n') {
-                x++;
-                feedback.setText("       Moving down");
-            } else if (top[x + 1][y] == 'g') {
-                x++;
-                feedback.setText("      Moving down");
-            }
+        //wall
+        if (top[x+1][y]=='w'){
+            feedback.setText("Wall, unable");
         }
-        else if (top[x + 1][y] == 'b') {
-            if (x + 2 >= 0 && top[x + 2][y] == 'n') {
-                top[x + 2][y] = 'b';
-                top[x + 1][y] = 'n';
-
+        //goal or not
+        else if (top[x+1][y]=='n'||top[x+1][y]=='g'&&ground[x+1][y]=='b') {
+            top[x][y] = 'n';  // 清除旧位置
+            x++;
+            feedback.setText("Moving down");
+        }
+        //box
+        else if (top[x+1][y]=='b') {
+            if (x+2>=0&&top[x+2][y]=='n'){
+                top[x+2][y]='b';
+                top[x+1][y]='n';
+                top[x][y] = 'n';  // 清除旧位置
                 x++;
-                feedback.setText("      Pushing the box");
-            }
-            else if (ground[x + 1][y] == 'g') {
-                x++;
-                feedback.setText("      Moving down");
+                feedback.setText("Pushing the box!");
             }
             else
-                feedback.setText("      Box can't move");
+                feedback.setText("Box can't move there");
         }
+        //update
         redraw();
+        repaint();
         currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"down.png"));
     }
 
 
     public void moveLeft() {
-        if (top[x][y-1]=='w')
-            feedback.setText("      Wall, unable");
-        else if (top[x][y-1]=='n'){
-            y--;
-            feedback.setText("      Moving left");
-
+        //wall
+        if (top[x][y-1]=='w'){
+            feedback.setText("Wall, unable");
         }
+        //goal or not
+        else if (top[x][y-1]=='n'||top[x][y-1]=='g'&&ground[x][y-1]=='b') {
+            top[x][y] = 'n';  // 清除旧位置
+            y--;
+            feedback.setText("Moving left");
+        }
+        //box
         else if (top[x][y-1]=='b') {
             if (y-2>=0&&top[x][y-2]=='n'){
                 top[x][y-2]='b';
                 top[x][y-1]='n';
-
+                top[x][y] = 'n';  // 清除旧位置
                 y--;
-                feedback.setText("      Pushing the box left");
+                feedback.setText("Pushing the box!");
             }
             else
-                feedback.setText("      Box can't move");
+                feedback.setText("Box can't move there");
         }
+        //update
         redraw();
+        repaint();
         currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"left.png"));
     }
 
 
     public void moveRight() {
-        if (top[x][y+1]=='w')
-            feedback.setText("      Wall, unable");
-        else if (top[x][y+1]=='n'){
-            y++;
-            feedback.setText("      Moving right");
-
+        //wall
+        if (top[x][y+1]=='w'){
+            feedback.setText("Wall, unable");
         }
+        //goal or not
+        else if (top[x][y+1]=='n'||top[x][y+1]=='g'&&ground[x][y+1]=='b') {
+            top[x][y] = 'n';  // 清除旧位置
+            y++;
+            feedback.setText("Moving right");
+        }
+        //box
         else if (top[x][y+1]=='b') {
             if (y+2>=0&&top[x][y+2]=='n'){
                 top[x][y+2]='b';
                 top[x][y+1]='n';
-
+                top[x][y] = 'n';  // 清除旧位置
                 y++;
-                feedback.setText("      Pushing the box");
+                feedback.setText("Pushing the box!");
             }
             else
-                feedback.setText("      Box can't move");
+                feedback.setText("Box can't move there");
         }
+        //update
         redraw();
+        repaint();
         currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"right.png"));
     }
 
@@ -394,7 +410,10 @@ public class Sokoban extends JPanel implements ActionListener{
                             {'w', 'n', 'b', 'n', 'b', 'n', 'w'},
                             {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                             {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
-
+        x = 3;
+        y = 2;
+        redraw();
+        repaint();
     }
 
     @Override
