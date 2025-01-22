@@ -84,7 +84,7 @@ public class Sokoban extends JPanel implements ActionListener{
         card1 = new JPanel();
         card1.setBackground(Color.white);
         JLabel title = new JLabel("Welcome");
-        JLabel scn = new JLabel(createImageIcon("scn1.gif"));
+        JLabel scn = new JLabel(createImageIcon("scn.png"));
         JButton next = new JButton("Next");
         next.setActionCommand("s2");
         next.addActionListener(this);
@@ -264,7 +264,7 @@ public class Sokoban extends JPanel implements ActionListener{
     }
 
 
-//up tested
+    //up tested
     public void moveUp() {
         //wall
         if (top[x-1][y]=='w'||top[x-1][y]=='g'&&ground[x-1][y]=='b'){
@@ -396,20 +396,20 @@ public class Sokoban extends JPanel implements ActionListener{
 
     public void reset(){
         ground = new char[][]   {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-                            {'w', 'n', 'n', 'g', 'n', 'n', 'w'},
-                            {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                            {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
-                            {'w', 'g', 'n', 'n', 'n', 'n', 'w'},
-                            {'w', 'n', 'n', 'n', 'g', 'n', 'w'},
-                            {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+                {'w', 'n', 'n', 'g', 'n', 'n', 'w'},
+                {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
+                {'w', 'g', 'n', 'n', 'n', 'n', 'w'},
+                {'w', 'n', 'n', 'n', 'g', 'n', 'w'},
+                {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
         top = new char[][]      {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-                            {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                            {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
-                            {'w', 'n', 'r', 'n', 'b', 'n', 'w'},
-                            {'w', 'n', 'b', 'n', 'b', 'n', 'w'},
-                            {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                            {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+                {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
+                {'w', 'n', 'r', 'n', 'b', 'n', 'w'},
+                {'w', 'n', 'b', 'n', 'b', 'n', 'w'},
+                {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
         x = 3;
         y = 2;
         redraw();
