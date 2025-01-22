@@ -50,7 +50,7 @@ public class Sokoban extends JPanel implements ActionListener{
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
-                    {'w', 'n', 'r', 'n', 'b', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'b', 'n', 'w'},
                     {'w', 'n', 'b', 'n', 'b', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
@@ -135,6 +135,7 @@ public class Sokoban extends JPanel implements ActionListener{
 
             }
         }
+        currArray[x*col+y].setIcon(createImageIcon(ground[x][y]+"up.png"));
 
         JButton up = new JButton("Up");
         up.setActionCommand("up");
@@ -302,8 +303,6 @@ public class Sokoban extends JPanel implements ActionListener{
         }
         else if (top[x + 1][y] == 'b') {
             if (x + 2 >= 0 && top[x + 2][y] == 'n') {
-                if (x == 3 && y == 2)
-                    top[3][2] = 'n';
                 top[x + 2][y] = 'b';
                 top[x + 1][y] = 'n';
 
@@ -326,16 +325,12 @@ public class Sokoban extends JPanel implements ActionListener{
         if (top[x][y-1]=='w')
             feedback.setText("      Wall, unable");
         else if (top[x][y-1]=='n'){
-//            if (x==3&&y==2)
-//                top[3][2]='n';
             y--;
             feedback.setText("      Moving left");
 
         }
         else if (top[x][y-1]=='b') {
             if (y-2>=0&&top[x][y-2]=='n'){
-//                if (x==3&&y==2)
-//                    top[3][2]='n';
                 top[x][y-2]='b';
                 top[x][y-1]='n';
 
@@ -354,16 +349,12 @@ public class Sokoban extends JPanel implements ActionListener{
         if (top[x][y+1]=='w')
             feedback.setText("      Wall, unable");
         else if (top[x][y+1]=='n'){
-            if (x==3&&y==2)
-                top[3][2]='n';
             y++;
             feedback.setText("      Moving right");
 
         }
         else if (top[x][y+1]=='b') {
             if (y+2>=0&&top[x][y+2]=='n'){
-                if (x==3&&y==2)
-                    top[3][2]='n';
                 top[x][y+2]='b';
                 top[x][y+1]='n';
 
@@ -432,7 +423,6 @@ public class Sokoban extends JPanel implements ActionListener{
         else if(e.getActionCommand().equals("nextLevel"))
             next();
         else if(e.getActionCommand().equals("reset"))
-            moveRight();
             reset();;
     }
 
