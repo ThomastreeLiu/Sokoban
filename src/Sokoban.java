@@ -43,7 +43,7 @@ public class Sokoban extends JPanel implements ActionListener{
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
     private char top[][] =
@@ -57,10 +57,10 @@ public class Sokoban extends JPanel implements ActionListener{
     private char top2[][] =
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                    {'w', 'n', 'n', 'n', 'b', 'g', 'w'},
+                    {'w', 'n', 'n', 'n', 'b', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
 
@@ -114,7 +114,6 @@ public class Sokoban extends JPanel implements ActionListener{
     public void screen3(){
         if (win()) {
             next();
-            level++;
         }
         //screen 3 is set up.
         card3 = new JPanel();
@@ -170,10 +169,10 @@ public class Sokoban extends JPanel implements ActionListener{
         dir.add(filler2);
 
         dir.add(left);
-        dir.add(reset);
+        dir.add(down);
+        //dir.add(reset);
         dir.add(right);
         //dir.add(filler3);
-        dir.add(down);
         card3.add(dir);
 
         feedback = new JLabel("      Moves: " + y + ", " + x); // Added feedback label
@@ -235,7 +234,6 @@ public class Sokoban extends JPanel implements ActionListener{
     public void redraw(){
         if (win()) {
             next();
-            level++;
         }
         int move = 0;
         for(int i = 0 ; i < row ; i++){
@@ -262,8 +260,9 @@ public class Sokoban extends JPanel implements ActionListener{
             x=x2;
             y=y2;
         }
-        if (level==3)
-            screen4();
+
+//        if (level==3)
+//            screen4();
     }
 
 
@@ -398,23 +397,44 @@ public class Sokoban extends JPanel implements ActionListener{
     }
 
     public void reset(){
-        ground = new char[][]   {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-                {'w', 'n', 'n', 'g', 'n', 'n', 'w'},
-                {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
-                {'w', 'g', 'n', 'n', 'n', 'n', 'w'},
-                {'w', 'n', 'n', 'n', 'g', 'n', 'w'},
-                {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+        if (level==1) {
+            ground = new char[][]{{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
+                    {'w', 'n', 'n', 'g', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
+                    {'w', 'g', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'g', 'n', 'w'},
+                    {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
-        top = new char[][]      {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-                {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
-                {'w', 'n', 'r', 'n', 'b', 'n', 'w'},
-                {'w', 'n', 'b', 'n', 'b', 'n', 'w'},
-                {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
-        x = 3;
-        y = 2;
+            top = new char[][]{{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
+                    {'w', 'n', 'r', 'n', 'b', 'n', 'w'},
+                    {'w', 'n', 'b', 'n', 'b', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+            x = 3;
+            y = 2;
+        }
+        else{
+            ground = new char[][]{{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
+                    {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+
+            top = new char[][]{{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'b', 'n', 'w'},
+                    {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
+            x = 4;
+            y = 3;
+        }
         redraw();
         repaint();
     }
