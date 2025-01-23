@@ -24,9 +24,9 @@ public class Sokoban extends JPanel implements ActionListener{
 
 
     private int x = 3;
-    private int x2 = 3;
+    private int x2 = 4;
     private int y = 2;
-    private int y2 = 2;
+    private int y2 = 3;
     private JLabel currArray[] = new JLabel[row * col];
 
     private char ground[][] =
@@ -39,11 +39,11 @@ public class Sokoban extends JPanel implements ActionListener{
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
     private char ground2[][] =
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-                    {'w', 'n', 'n', 'g', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                    {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
-                    {'w', 'g', 'n', 'n', 'n', 'n', 'w'},
-                    {'w', 'n', 'n', 'n', 'g', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
     private char top[][] =
@@ -57,10 +57,10 @@ public class Sokoban extends JPanel implements ActionListener{
     private char top2[][] =
             {{'w', 'w', 'w', 'w', 'w', 'w', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                    {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
-                    {'w', 'n', 'r', 'n', 'b', 'n', 'w'},
-                    {'w', 'n', 'b', 'n', 'b', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'b', 'g', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
 
@@ -160,10 +160,11 @@ public class Sokoban extends JPanel implements ActionListener{
 
         card3.add(pane);
 
-        JPanel dir = new JPanel(new GridLayout(3, 3));
+        JPanel dir = new JPanel(new GridLayout(2, 3));
         JLabel filler = new JLabel("");
         JLabel filler2 = new JLabel("");
-        JLabel filler3 = new JLabel("");
+        card3.add(reset);
+        //JLabel filler3 = new JLabel("");
         dir.add(filler);
         dir.add(up);
         dir.add(filler2);
@@ -171,7 +172,7 @@ public class Sokoban extends JPanel implements ActionListener{
         dir.add(left);
         dir.add(reset);
         dir.add(right);
-        dir.add(filler3);
+        //dir.add(filler3);
         dir.add(down);
         card3.add(dir);
 
@@ -261,6 +262,8 @@ public class Sokoban extends JPanel implements ActionListener{
             x=x2;
             y=y2;
         }
+        if (level==3)
+            screen4();
     }
 
 
