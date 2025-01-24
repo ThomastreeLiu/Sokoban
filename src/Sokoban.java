@@ -16,6 +16,7 @@ public class Sokoban extends JPanel implements ActionListener{
     private JButton next = new JButton("Next");
     private JButton tryAgain= new JButton("Try again");
 
+
     //grid
     private int row = 7;
     private int col = 7;
@@ -27,6 +28,7 @@ public class Sokoban extends JPanel implements ActionListener{
     private int x2 = 4;
     private int y = 2;
     private int y2 = 3;
+    int times = 0;
     private JLabel currArray[] = new JLabel[row * col];
 
     private char ground[][] =
@@ -163,6 +165,8 @@ public class Sokoban extends JPanel implements ActionListener{
         JLabel filler = new JLabel("");
         JLabel filler2 = new JLabel("");
         card3.add(reset);
+        //card3.add(next);
+        next.setEnabled(false);
         //JLabel filler3 = new JLabel("");
         dir.add(filler);
         dir.add(up);
@@ -187,12 +191,14 @@ public class Sokoban extends JPanel implements ActionListener{
         wol = true;
         //screen 4 is set up.
         card4 = new JPanel();
-        card4.setBackground(Color.yellow);
+        card4.setBackground(new Color(55,165,255));
         JLabel title = new JLabel("You Win!");
         next.setActionCommand("s5");
         next.addActionListener(this);
+        JLabel pic = new JLabel(createImageIcon("R.jpg"));
         card4.add(title);
-        card4.add(next);
+        card4.add(pic);
+        //card4.add(next);
         p_card.add("4", card4);
         reset();
     }
@@ -232,9 +238,10 @@ public class Sokoban extends JPanel implements ActionListener{
 
 
     public void redraw(){
-        if (win()) {
+        times++;
+        if (win())
             next();
-        }
+
         int move = 0;
         for(int i = 0 ; i < row ; i++){
             for(int j = 0 ; j < col ; j++){
@@ -260,11 +267,9 @@ public class Sokoban extends JPanel implements ActionListener{
             x=x2;
             y=y2;
         }
-
-//        if (level==3)
-//            screen4();
+        if (level==3)
+            cdLayout.show(p_card, "4");
     }
-
 
     //up tested
     public void moveUp() {
@@ -465,7 +470,11 @@ public class Sokoban extends JPanel implements ActionListener{
         else if(e.getActionCommand().equals("nextLevel"))
             next();
         else if(e.getActionCommand().equals("reset"))
-            reset();;
+            reset();
+        if(win()) {
+            JOptionPane.showMessageDialog(null, "nice work to complete the level");
+            screen4();
+        }
     }
 
     public static void main(String[] args) {
