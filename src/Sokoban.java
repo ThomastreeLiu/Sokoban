@@ -13,6 +13,7 @@ public class Sokoban extends JPanel implements ActionListener{
     private JPanel card1, card2, card3, card4, card5;
     private CardLayout cdLayout = new CardLayout();
     private JLabel feedback = new JLabel("");
+    private JLabel levelprt = new JLabel("");
     private JButton next = new JButton("Next");
     private JButton tryAgain= new JButton("Try again");
 
@@ -101,7 +102,7 @@ public class Sokoban extends JPanel implements ActionListener{
         //screen 2 is set up.
         card2 = new JPanel();
         card2.setBackground(Color.white);
-        JLabel title = new JLabel("Instructions");
+        JLabel title = new JLabel("How to play Sokoban");
         JLabel intro = new JLabel(createImageIcon("intro.gif"));
         JButton next = new JButton("Next");
         next.setActionCommand("s3");
@@ -180,7 +181,9 @@ public class Sokoban extends JPanel implements ActionListener{
         card3.add(dir);
 
         feedback = new JLabel("      Moves: " + y + ", " + x); // Added feedback label
+        levelprt = new JLabel("Level:"+level);
         card3.add(feedback);
+        card3.add(levelprt);
         p_card.add("3", card3);
 
     }
