@@ -44,7 +44,7 @@ public class Sokoban extends JPanel implements ActionListener{
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 'w', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'g', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
@@ -61,7 +61,7 @@ public class Sokoban extends JPanel implements ActionListener{
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'b', 'n', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
-                    {'w', 'n', 'n', 'n', 'n', 'n', 'w'},
+                    {'w', 'n', 'n', 'n', 's', 'n', 'w'},
                     {'w', 'n', 'n', 'n', 'b', 'n', 'w'},
                     {'w', 'w', 'w', 'w', 'w', 'w', 'w'}};
 
